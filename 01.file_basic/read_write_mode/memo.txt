@@ -1,0 +1,84 @@
+Text mode
+
+- 문자를 저장할 때 사용되는 방식
+- "10" 저장시 파일에는 0x31, 0x30이 저장됨
+- fputc/fputs/fprintf
+- fgetc/fgets/fscanf
+
+
+Binary mode
+
+- 데이터를 저장할 때 사용되는 방식
+- 10 저장시 파일에 0x0a가 저장됨
+- fwrite/fread
+
+
+파일에 쓰기
+int fprintf(FILE *stream, const char *format, ...);
+
+- printf와 사용법이 거의 흡사
+
+- 파라미터
+	stream: 열린 파일 포인터
+	format: 입력 포맷
+	.... 가변 arguments
+
+- 반환값
+	성공시 입력받은 아이템 개수
+	실패시 EOF
+
+
+포맷 변환
+- d : signed integer
+- u : unsigned integer, 10진수
+- o : unsigned integer, 8진수
+- x : unsigned integer, 16진수(abcde)
+- X : unsigned integer, 16진수(ABCDE)
+- s : NULL-terminated string
+- f : floating-point, [-]ddd.ddd
+- e : floating-point, [-]d.ddde+-dd
+
+integer 길이(위와 조합하여 사용)
+- hh : sizeof(char)
+- h : sizeof(short)
+- (생략) : sizeof(int)
+- l : sizeof(long)
+=> 주의 : 32비트 상에서 long은 4바이트(= int)
+          64비트 상에서 long은 8바이트(= long long)
+- ll : sizeof(long long)
+
+
+파일에서 쓰기
+- fputc(문자)
+- fputs(문자열)
+
+파일에서 읽기
+- fgetc(문자)
+- fgets(문자열)
+ 
+
+파일에 쓰기(byte)
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+- 파라미터
+	ptr : 출력할 byte stream 포인터
+	size : 출력 아이템 사이즈
+	nmemb : 출력 아이템 개수
+	stream : 열린 파일 포인터
+- 반환값
+	실제로 출력된 아이템 개수
+	완전하게 쓰여졌는지 확인 필요
+
+
+파일에 읽기(byte)
+size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream)
+ - 파라미터
+	ptr : 출력할 byte stream 포인터
+	size : 출력 아이템 사이즈
+	nmemb : 출력 아이템 개수
+	stream : 열린 파일 포인터
+- 반환값
+	실제로 입력된 아이템 개수
+	완전하게 읽혀졌졌는지 확인 필요
+
+
+
